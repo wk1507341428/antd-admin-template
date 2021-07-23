@@ -4,6 +4,7 @@ import { join } from 'path';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
 import routes from './routes';
+// 这个环境变量 只在开发环境有用
 const { REACT_APP_ENV } = process.env;
 export default defineConfig({
   hash: true,
