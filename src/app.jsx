@@ -3,8 +3,7 @@ import { notification } from 'antd';
 import { history, Link } from 'umi';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
-import { BookOutlined, LinkOutlined } from '@ant-design/icons';
+// import { currentUser as queryCurrentUser } from './services_discard/ant-design-pro/api';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -14,18 +13,15 @@ export const initialStateConfig = {
 };
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
+ * 约定一个地方生产和消费初始化数据。 相当于一个获取临时储存空间
+ * ! TODO 应用启动的时候就会执行这个函数 不知道为毛 姑且当作是一个语法
  * */
-
 export async function getInitialState() {
   const fetchUserInfo = async () => {
-    try {
-      const msg = await queryCurrentUser();
-      return msg.data;
-    } catch (error) {
-      history.push(loginPath);
+    return {
+      name: '路明非',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     }
-
-    return undefined;
   }; // 如果是登录页面，不执行
 
   if (history.location.pathname !== loginPath) {
@@ -111,18 +107,6 @@ export const layout = ({ initialState }) => {
         history.push(loginPath);
       }
     },
-    links: isDev
-      ? [
-          <Link to="/umi/plugin/openapi" target="_blank">
-            <LinkOutlined />
-            <span>OpenAPI 文档</span>
-          </Link>,
-          <Link to="/~docs">
-            <BookOutlined />
-            <span>业务组件文档</span>
-          </Link>,
-        ]
-      : [],
     menuHeaderRender: undefined,
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,

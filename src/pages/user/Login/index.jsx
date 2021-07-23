@@ -11,11 +11,10 @@ import React, { useState } from 'react';
 import ProForm, { ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-form';
 import { useIntl, Link, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
-import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+// import { login } from '@/services_discard/ant-design-pro/api';
+// import { getFakeCaptcha } from '@/services_discard/ant-design-pro/login';
 import styles from './index.less';
 import Cookies from 'js-cookie'
-
 const LoginMessage = ({ content }) => (
   <Alert
     style={{
@@ -47,7 +46,7 @@ const Login = () => {
 
     try {
       // 登录
-      const msg = await login({ ...values, type });
+      const msg = { status: 'ok' }
 
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
